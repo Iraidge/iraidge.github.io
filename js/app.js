@@ -1,8 +1,7 @@
-/* ============ НАСТРОЙКИ — правь здесь ============ */
 const CFG = {
   name: "Ivan Deriabin",
-  github: "iraidge",
-  repo: "",                    
+  github: "Iraidge",
+  repo: "Iraidge/iraidge.github.io",                    
   email: "ivanderb26@gmail.com",
   typed: "int main(void) { return 0; }",
   photo: "",
