@@ -10,9 +10,11 @@ const CFG = {
 
 const PROJECTS = [
   { title:"CryoCannon-Component", desc:"A modular Cryo Cannon weapon component prototype built with C++ for Unreal Engine 5.7",
-    tags:["C++20","UE"], repo:"UE5-CryoCannonComponent", img:"assets/CryoCannon.png", pin:true},
+    tags:["C++","UE5"], repo:"UE5-CryoCannonComponent", img:"assets/CryoCannon.png", pin:true},
   { title:"Inventory System with raylib", desc:"A 2D inventory system made with C++ and Raylib, featuring Drag & Drop, item swapping, selling mechanics, and lazy texture loading for 1244 unique items.",
     tags:["C++","raylib"], repo:"Raylib-Inventory-System", img:"assets/InventorySystem.png" },
+  { title:"Rooftop Farmer", desc:"A small game prototype about farming vegetables on rooftops, built with Unreal Engine 5.6 using Blueprints.",
+    tags:["UE5","Blueprints"], links:[["Download on itch.io", "https://iraidge.itch.io/rooftop-farmer"]], img:"assets/Rooftop-Farmer.png" },
 ];
 
 const ROADMAP = [
@@ -197,6 +199,11 @@ async function heatmap(){
   el.querySelector(".hm").scrollLeft=1e5;
 }
 
+function projectLinks(p){
+  const l=p.links||(p.repo?[["View on GitHub",`https://github.com/${CFG.github}/${p.repo}`]]:[]);
+  return l.map(([t,u])=>`<a class="gh" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("");
+}
+
 function projectCard(p){
   return `<article class="card">
     <div class="shot">${p.img?`<img src="${esc(p.img)}" alt="Screenshot of ${esc(p.title)}" loading="lazy">`:`<div class="ph">screenshot / gif</div>`}</div>
@@ -204,7 +211,7 @@ function projectCard(p){
       <h3>${esc(p.title)}</h3>
       <p>${esc(p.desc)}</p>
       <div class="tags">${p.tags.map(t=>`<span>${esc(t)}</span>`).join("")}</div>
-      <a class="gh" href="https://github.com/${CFG.github}/${p.repo}" target="_blank" rel="noopener">View on GitHub</a>
+      ${projectLinks(p)}
     </div>
   </article>`;
 }
