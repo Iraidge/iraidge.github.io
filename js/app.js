@@ -1,43 +1,49 @@
+// ===== Site settings: edit the data blocks below (CFG, PROJECTS, ABOUT, FACTS, LINKS, SKILLS) =====
 const CFG = {
   name: "Ivan Deriabin",
   github: "Iraidge",
-  repo: "Iraidge/iraidge.github.io",                    
+  repo: "Iraidge/iraidge.github.io",
   email: "ivanderb26@gmail.com",
   typed: "int main(void) { return 0; }",
   photo: "",
   lead: "I write games in C++ and raylib and want to understand what happens under the hood. I'm reading about OpenGL for now; Vulkan is the goal for later."
 };
 
+// Projects. Optional fields: youtube (demo video URL), repo (GitHub repo name), itch (itch.io page URL),
+// links ([["Label","url"]] for extra links), pin:true (shows the project on the home page).
 const PROJECTS = [
-  { title:"CryoCannon-Component", desc:"A modular Cryo Cannon weapon component prototype built with C++ for Unreal Engine 5.7",
-    tags:["C++","UE5"], repo:"UE5-CryoCannonComponent", img:"assets/CryoCannon.png", pin:true},
-  { title:"Inventory System with raylib", desc:"A 2D inventory system made with C++ and Raylib, featuring Drag & Drop, item swapping, selling mechanics, and lazy texture loading for 1244 unique items.",
-    tags:["C++","raylib"], repo:"Raylib-Inventory-System", img:"assets/InventorySystem.png" },
-  { title:"Rooftop Farmer", desc:"A small game prototype about farming vegetables on rooftops, built with Unreal Engine 5.6 using Blueprints.",
-    tags:["UE5","Blueprints"], links:[["Download on itch.io", "https://iraidge.itch.io/rooftop-farmer"]], img:"assets/Rooftop-Farmer.png" },
-];
+  { title:"CryoCannon-Component",
+    desc:"A modular Cryo Cannon weapon component prototype built with C++ for Unreal Engine 5.7",
+    tags:["C++","UE5"], img:"assets/CryoCannon.png", pin:true,
+    youtube:"https://youtu.be/n7KydgAHSE4", repo:"UE5-CryoCannonComponent" },
 
-const ROADMAP = [
-  { t:"C++ and raylib", s:"now", d:"building games, learning the game loop" },
-  { t:"OpenGL", s:"theory", d:"theory for now, reading and sketching on paper" },
-  { t:"Vulkan", s:"goal", d:"the goal, not touched yet" }
-];
+  { title:"Inventory System with raylib",
+    desc:"A 2D inventory system made with C++ and Raylib, featuring Drag & Drop, item swapping, selling mechanics, and lazy texture loading for 1244 unique items.",
+    tags:["C++","raylib"], img:"assets/InventorySystem.png",
+    repo:"Raylib-Inventory-System" },
 
+  { title:"Rooftop Farmer",
+    desc:"A small game prototype about farming vegetables on rooftops, built with Unreal Engine 5.6 using Blueprints.",
+    tags:["UE5","Blueprints"], img:"assets/Rooftop-Farmer.png",
+    youtube:"https://youtu.be/qA4leDZABsw", itch:"https://iraidge.itch.io/rooftop-farmer" }
+];
 
 const ABOUT = [
   "Hi! I'm a game developer writing in C++ and raylib. I like the low level: memory, the game loop, the path from code to pixels on screen.",
   "Right now I build small games and tools and read about the graphics pipeline and OpenGL (on paper, for now). Next I want to get to Vulkan."
 ];
-const FACTS = [["location","Leeds, UK"],["stack","C++, raylib"],["learning","C++, raylib, OpenGL"],["goal","Vulkan"]];
+const FACTS = [["LOCATION","Leeds, UK"],["STACK","C++, raylib, Unreal Engine 5"],["LEARNING","C++, raylib, OpenGL"],["GOAL","Vulkan"]];
 
 const LINKS = [
   ["Email","mailto:"+CFG.email,CFG.email],
   ["GitHub","https://github.com/"+CFG.github,"@"+CFG.github],
-  ["Telegram","https://t.me/Iraidge_dev","@Iraidge_dev"],
   ["X","https://x.com/Iraidge","@Iraidge"],
+  ["LinkedIn", "https://www.linkedin.com/in/ivan-deriabin-688b572a4/", "Ivan Deriabin"],
+  ["Youtube", "https://www.youtube.com/@iraidge", "@Iraidge"],
+  ["itch.io", "https://iraidge.itch.io/", "Iraidge"]
 ];
 
-// Skills: n — name, d — description, i — icons (from ICONS), s — status: now (write) / theory (learning) / goal (goal).
+// Skills: n = name, d = description, i = icon key (see ICONS), s = status: now / theory / goal.
 const ICONS = {
   code:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
   pad:'<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v5M4.5 12.5h5"/><circle cx="16" cy="11.5" r=".7"/><circle cx="18.5" cy="13.5" r=".7"/>',
@@ -78,7 +84,7 @@ function md(src){
     if(/^&gt;/.test(b)) return "<blockquote>"+inline(b.replace(/^&gt;\s?/gm,"").replace(/\n/g," "))+"</blockquote>";
     if(/^[-*]\s/.test(b)) return "<ul>"+b.split("\n").map(l=>"<li>"+inline(l.replace(/^[-*]\s+/,""))+"</li>").join("")+"</ul>";
     if(/^\d+\.\s/.test(b)) return "<ol>"+b.split("\n").map(l=>"<li>"+inline(l.replace(/^\d+\.\s+/,""))+"</li>").join("")+"</ol>";
-    return "<p>"+inline(b.replace(/\n/g," "))+"</p>";
+    return "<p>"+inline(b.replace(/( {2,}|\\)\n/g,"<br>").replace(/\n/g," "))+"</p>";
   }).join("").replace(/\u0000(\d+)\u0000/g,(_,i)=>"<pre><code>"+code[i]+"</code></pre>");
 }
 function parsePost(file,text){
@@ -112,7 +118,6 @@ async function loadPosts(){
 }
 
 const app=document.getElementById("app");
-const fmt=d=>d||"";
 
 function home(){
   const photo=CFG.photo?`<img src="${esc(CFG.photo)}" alt="${esc(CFG.name)}">`:`<span>your photo</span>`;
@@ -139,10 +144,6 @@ function home(){
     <div class="pin"><h3>Pinned project</h3>${projectCard(PROJECTS.find(p=>p.pin)||PROJECTS[0])}</div>
   </section>
   <section class="road">
-    <h3>GitHub activity</h3>
-    <div id="hm"><p class="empty">loading…</p></div>
-  </section>
-  <section class="road">
     <h3>What I can do</h3>
     <div class="skills">${SKILLS.map(k=>`<article class="sk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k.i]}</svg></div><div><b>${esc(k.n)}</b><span>${esc(k.d)}</span></div><em class="st ${k.s}">${ST[k.s]}</em></article>`).join("")}</div>
   </section>
@@ -150,7 +151,7 @@ function home(){
     <h3>Contact</h3>
     <ul class="links">${LINKS.map(([n,u,h])=>`<li><a href="${esc(u)}"${u.startsWith("mailto:")?"":' target="_blank" rel="noopener"'}><span>${n}</span>${esc(h)}</a></li>`).join("")}</ul>
   </section>`;
-  typeLine(); heatmap();
+  typeLine();
 }
 
 let typeTimer;
@@ -162,46 +163,13 @@ function typeLine(){
   typeTimer=setInterval(()=>{ el.textContent=s.slice(0,++i); if(i>=s.length) clearInterval(typeTimer); },55);
 }
 
-function demoDays(){
-  const out=[], end=new Date(); end.setHours(12,0,0,0);
-  let seed=7; const rnd=()=>(seed=seed*16807%2147483647)/2147483647;
-  for(let i=364;i>=0;i--){
-    const d=new Date(end-i*864e5), wd=d.getDay();
-    const p=((wd===0||wd===6)?.25:.6)*(.5+.5*Math.sin(i/23))+.08;
-    const c=rnd()<p?Math.ceil(rnd()*rnd()*12):0;
-    out.push({date:d.toISOString().slice(0,10),count:c,level:c===0?0:c<3?1:c<6?2:c<10?3:4});
-  }
-  return out;
-}
-async function heatmap(){
-  const el=document.getElementById("hm"); if(!el) return;
-  const demo=CFG.github==="username"; let days=[], note="";
-  if(demo){ days=demoDays(); note=" · demo data, yours will appear once CFG.github is set"; }
-  else try{
-    const r=await fetch(`https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(CFG.github)}?y=last`);
-    days=(await r.json()).contributions||[];
-  }catch(e){}
-  if(!document.getElementById("hm")) return;
-  if(!days.length){ el.innerHTML=`<p class="empty">Couldn't load GitHub activity.</p>`; return; }
-  const total=days.reduce((a,d)=>a+d.count,0);
-  const lead=new Date(days[0].date+"T12:00:00").getDay();
-  const cells=[...Array(lead).fill(null),...days], weeks=Math.ceil(cells.length/7);
-  const MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  let mo="", prevM=-1, lastW=-9;
-  for(let w=0;w<weeks;w++){
-    const d=cells.slice(w*7,w*7+7).find(Boolean), m=d?new Date(d.date+"T12:00:00").getMonth():prevM;
-    mo+=`<span>${m!==prevM&&w-lastW>=3?(lastW=w,MN[m]):""}</span>`; prevM=m;
-  }
-  const grid=cells.map((d,i)=>d?`<i class="c l${d.level}" style="--i:${i/7|0}" title="${d.count} · ${d.date}"></i>`:`<i class="c n"></i>`).join("");
-  el.innerHTML=`<div class="hm"><div class="hm-in"><div class="mo">${mo}</div><div class="cells">${grid}</div></div></div>
-    <div class="hm-foot"><span>${total} contributions in the last year${note}</span>
-    <span class="leg">less <i class="c"></i><i class="c l1"></i><i class="c l2"></i><i class="c l3"></i><i class="c l4"></i> more</span></div>`;
-  el.querySelector(".hm").scrollLeft=1e5;
-}
-
 function projectLinks(p){
-  const l=p.links||(p.repo?[["View on GitHub",`https://github.com/${CFG.github}/${p.repo}`]]:[]);
-  return l.map(([t,u])=>`<a class="gh" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("");
+  const l=[];
+  if(p.youtube) l.push(["Watch demo",p.youtube]);
+  if(p.repo) l.push(["GitHub",`https://github.com/${CFG.github}/${p.repo}`]);
+  if(p.itch) l.push(["itch.io",p.itch]);
+  const all=[...l,...(p.links||[])];
+  return all.length?`<div class="plinks">${all.map(([t,u])=>`<a class="gh" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("")}</div>`:"";
 }
 
 function projectCard(p){
@@ -226,7 +194,7 @@ async function blog(){
   app.innerHTML=`<h2 class="page">Blog</h2><p class="sub">Notes on C++, graphics and games.</p><div class="empty">loading…</div>`;
   const posts=await loadPosts();
   app.querySelector(".empty").outerHTML = posts.length
-    ? `<ul class="posts">${posts.map(p=>`<li><a href="#/blog/${encodeURIComponent(p.slug)}"><time>${fmt(p.date)}</time><div><h3>${esc(p.title)}</h3>${p.desc?`<p>${esc(p.desc)}</p>`:""}</div></a></li>`).join("")}</ul>`
+    ? `<ul class="posts">${posts.map(p=>`<li><a href="#/blog/${encodeURIComponent(p.slug)}"><time>${p.date}</time><div><h3>${esc(p.title)}</h3>${p.desc?`<p>${esc(p.desc)}</p>`:""}</div></a></li>`).join("")}</ul>`
     : `<p class="empty">No posts yet. Add a .md file to blog/posts/.</p>`;
 }
 
@@ -236,7 +204,7 @@ async function post(slug){
   if(!p){ app.innerHTML=`<a class="back" href="#/blog">← all posts</a><p class="empty">Post not found.</p>`; return; }
   document.title=p.title+" — "+CFG.name;
   app.innerHTML=`<a class="back" href="#/blog">← all posts</a>
-    <article class="post"><h1>${esc(p.title)}</h1><div class="meta">${fmt(p.date)}</div><div class="md">${md(p.body)}</div></article>`;
+    <article class="post"><h1>${esc(p.title)}</h1><div class="meta">${p.date}</div><div class="md">${md(p.body)}</div></article>`;
 }
 
 function route(){
