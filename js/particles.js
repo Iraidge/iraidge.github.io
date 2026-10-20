@@ -19,7 +19,7 @@
     const dpr=Math.min(window.devicePixelRatio||1,2);
     W=innerWidth; H=innerHeight;
     cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-    const n=Math.min(70,Math.round(W*H/22000));   // fewer particles on small screens
+    const n=Math.min(160,Math.round(W*H/9000));   // fewer particles on small screens
     while(P.length<n) P.push(spawn(false));
     P.length=Math.min(P.length,n);
   }

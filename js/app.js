@@ -32,7 +32,7 @@ const ABOUT = [
   "Hi! I'm a game developer writing in C++ and raylib. I like the low level: memory, the game loop, the path from code to pixels on screen.",
   "Right now I build small games and tools and read about the graphics pipeline and OpenGL (on paper, for now). Next I want to get to Vulkan."
 ];
-const FACTS = [["LOCATION","Leeds, UK"],["STACK","C++, raylib, Unreal Engine 5"],["LEARNING","C++, raylib, OpenGL"],["GOAL","Vulkan"]];
+const FACTS = [["LOCATION","Leeds, UK"],["STACK","C++, raylib"],["LEARNING","C++, raylib, OpenGL"],["GOAL","Vulkan"]];
 
 const LINKS = [
   ["Email","mailto:"+CFG.email,CFG.email],
@@ -91,7 +91,7 @@ function parsePost(file,text){
   const meta={}; let body=text.replace(/\r/g,"");
   const m=body.match(/^---\n([\s\S]*?)\n---\n?/);
   if(m){ m[1].split("\n").forEach(l=>{const i=l.indexOf(":"); if(i>0) meta[l.slice(0,i).trim()]=l.slice(i+1).trim()}); body=body.slice(m[0].length); }
-  return { slug:file.replace(/\.md$/,""), title:meta.title||file.replace(/\.md$/,""), date:meta.date||"", desc:meta.description||"", body };
+  return { slug:file.replace(/\.md$/,""), title:meta.title||file.replace(/\.md$/,""), date:meta.date||"", desc:meta.description||"", image:meta.image||"", body };
 }
 
 let postsCache=null;
@@ -104,8 +104,8 @@ async function loadPosts(){
       if(r.ok) files=(await r.json()).map(f=>f.name);
     }
   }catch(e){}
-  if(!files.length) try{
-    const r=await fetch("blog/posts/index.json"); if(r.ok) files=await r.json();
+  try{ // local index.json is merged with the GitHub list (so unpushed posts show up when testing locally)
+    const r=await fetch("blog/posts/index.json"); if(r.ok) files=[...new Set([...files,...await r.json()])];
   }catch(e){}
   files=files.filter(f=>/\.md$/i.test(f));
   if(files.length){
@@ -120,9 +120,8 @@ async function loadPosts(){
 const app=document.getElementById("app");
 
 function home(){
-  const photo=CFG.photo?`<img src="${esc(CFG.photo)}" alt="${esc(CFG.name)}">`:`<span>your photo</span>`;
   app.innerHTML=`
-  <section class="hero">
+  <section class="hero${CFG.photo?"":" solo"}">
     <div>
       <div class="prompt"><i>$</i> <span id="typed"></span><span class="cursor"></span></div>
       <h1>${esc(CFG.name)},<br><em>low-level</em><br>game developer.</h1>
@@ -133,7 +132,7 @@ function home(){
         <a class="btn" href="https://github.com/${CFG.github}" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
-    <figure class="photo">${photo}<figcaption>${esc(CFG.name)}</figcaption></figure>
+    ${CFG.photo?`<figure class="photo"><img src="${esc(CFG.photo)}" alt="${esc(CFG.name)}"><figcaption>${esc(CFG.name)}</figcaption></figure>`:""}
   </section>
   <section class="road about">
     <div>
@@ -204,7 +203,7 @@ async function post(slug){
   if(!p){ app.innerHTML=`<a class="back" href="#/blog">← all posts</a><p class="empty">Post not found.</p>`; return; }
   document.title=p.title+" — "+CFG.name;
   app.innerHTML=`<a class="back" href="#/blog">← all posts</a>
-    <article class="post"><h1>${esc(p.title)}</h1><div class="meta">${p.date}</div><div class="md">${md(p.body)}</div></article>`;
+    <article class="post">${p.image?`<img class="banner" src="${esc(p.image)}" alt="">`:""}<h1>${esc(p.title)}</h1><div class="meta">${p.date}</div><div class="md">${md(p.body)}</div></article>`;
 }
 
 function route(){

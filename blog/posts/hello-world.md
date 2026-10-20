@@ -2,6 +2,7 @@
 title: Hello World: why I'm starting this blog
 date: 2026-10-04
 description: Who I am, what I'm building, and where I want to go.
+image: blog/images/hello-world.png
 ---
 Hi, I'm Ivan, a young game developer who wants to pursue gameplay and graphics programming.
 I'm starting this blog to track my progress as I learn graphics APIs, gameplay systems, and game design features.
