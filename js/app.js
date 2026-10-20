@@ -15,7 +15,7 @@ const PROJECTS = [
   { title:"CryoCannon-Component",
     desc:"A modular Cryo Cannon weapon component prototype built with C++ for Unreal Engine 5.7",
     tags:["C++","UE5"], img:"assets/CryoCannon.png", pin:true,
-    youtube:"https://youtu.be/n7KydgAHSE4", repo:"UE5-CryoCannonComponent" },
+    youtube:"https://youtu.be/n7KydgAHSE4", repo:"UE5-CryoCannonCom ponent" },
 
   { title:"Inventory System with raylib",
     desc:"A 2D inventory system made with C++ and Raylib, featuring Drag & Drop, item swapping, selling mechanics, and lazy texture loading for 1244 unique items.",
@@ -32,7 +32,7 @@ const ABOUT = [
   "Hi! I'm a game developer writing in C++ and raylib. I like the low level: memory, the game loop, the path from code to pixels on screen.",
   "Right now I build small games and tools and read about the graphics pipeline and OpenGL (on paper, for now). Next I want to get to Vulkan."
 ];
-const FACTS = [["LOCATION","Leeds, UK"],["STACK","C++, raylib"],["LEARNING","C++, raylib, OpenGL"],["GOAL","Vulkan"]];
+const FACTS = [["LOCATION","Leeds, UK"],["STACK","C++, raylib, Unreal Engine 5"],["LEARNING","C++, raylib, OpenGL"],["GOAL","Vulkan"]];
 
 const LINKS = [
   ["Email","mailto:"+CFG.email,CFG.email],
