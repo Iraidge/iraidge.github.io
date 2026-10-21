@@ -37,7 +37,7 @@ const FACTS = [["LOCATION","Leeds, UK"],["STACK","C++, raylib, Unreal Engine 5"]
 const LINKS = [
   ["Email","mailto:"+CFG.email,CFG.email],
   ["GitHub","https://github.com/"+CFG.github,"@"+CFG.github],
-  ["X","https://x.com/Iraidge","@Iraidge"],
+  ["Twitter","https://x.com/Iraidge","@Iraidge"],
   ["LinkedIn", "https://www.linkedin.com/in/ivan-deriabin-688b572a4/", "Ivan Deriabin"],
   ["Youtube", "https://www.youtube.com/@iraidge", "@Iraidge"],
   ["itch.io", "https://iraidge.itch.io/", "Iraidge"]
