@@ -15,7 +15,7 @@ const PROJECTS = [
   { title:"CryoCannon-Component",
     desc:"A modular Cryo Cannon weapon component prototype built with C++ for Unreal Engine 5.7",
     tags:["C++","UE5"], img:"assets/CryoCannon.png", pin:true,
-    youtube:"https://youtu.be/n7KydgAHSE4", repo:"UE5-CryoCannonCom ponent" },
+    youtube:"https://youtu.be/n7KydgAHSE4", repo:"UE5-CryoCannonComponent" },
 
   { title:"Inventory System with raylib",
     desc:"A 2D inventory system made with C++ and Raylib, featuring Drag & Drop, item swapping, selling mechanics, and lazy texture loading for 1244 unique items.",
