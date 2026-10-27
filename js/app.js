@@ -39,7 +39,7 @@ const LINKS = [
   ["Email","mailto:"+CFG.email,CFG.email],
   ["GitHub","https://github.com/"+CFG.github,"@"+CFG.github],
   ["X","https://x.com/Iraidge","@Iraidge"],
-  ["LinkedIn", "https://www.linkedin.com/in/ivan-deriabin-688b572a4/", "Ivan Deriabin"],
+  ["LinkedIn", "https://www.linkedin.com/in/ivanderb/", "Ivan Deriabin"],
   ["YouTube", "https://www.youtube.com/@iraidge", "@Iraidge"],
   ["itch.io", "https://iraidge.itch.io/", "Iraidge"]
 ];
