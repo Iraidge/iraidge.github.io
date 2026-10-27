@@ -6,9 +6,8 @@ const CFG = {
   email: "ivanderb26@gmail.com",
   typed: "int main(void) { return 0; }",
   photo: "",
-  lead: "I write games in C++ and raylib and want to understand what happens under the hood. I'm reading about OpenGL for now; Vulkan is the goal for later."
+  lead: "I'm a Game Design student at Leeds Beckett University, looking for a placement year in gameplay or graphics programming starting in summer or September 2027. I write games and prototypes in C++ with raylib and Unreal Engine, and I'm learning how engines work under the hood, starting with OpenGL and aiming for Vulkan."
 };
-
 // Projects. Optional fields: youtube (demo video URL), repo (GitHub repo name), itch (itch.io page URL),
 // links ([["Label","url"]] for extra links), pin:true (shows the project on the home page).
 const PROJECTS = [
@@ -29,40 +28,38 @@ const PROJECTS = [
 ];
 
 const ABOUT = [
-  "Hi! I'm a game developer writing in C++ and raylib. I like the low level: memory, the game loop, the path from code to pixels on screen.",
-  "Right now I build small games and tools and read about the graphics pipeline and OpenGL (on paper, for now). Next I want to get to Vulkan."
+  "I'm a Game Design student at Leeds Beckett University, working mostly in C++ with Unreal Engine and raylib. I enjoy understanding how things work under the hood and I want to get better at it. I'm looking for a gameplay or graphics programming placement starting in September 2027.",
+  "What drew me to games is the idea of building something that other people play together and enjoy. I like the whole loop: coming up with an idea, making it work, and watching someone else pick it up and have fun with it. I'm still early in my career, but I take the work seriously and hold myself to a high standard.",
+  "What keeps me going is inventing things. I constantly design mechanics in my head, even ones I'll never build, like a horror game where each level ends with you travelling back in time to scare your past self. Sometimes they do get built. CryoCannon started as an idea for a Portal-style puzzle game built around a freeze gun, with some inspiration from Prey's GLOO Cannon. I moved away from the puzzles and built it as a weapon component that shoots a freeze ray, spawns ice spikes and creates protective ice walls.",
+  "Away from the keyboard I play board games and listen to music. My favourite kind of game is an old-school RPG like Oblivion. I love its dated look and the way its combat feels: you throw a fireball and the enemy ragdolls across the room. I can't fully explain why, it just feels close to my heart."
 ];
-const FACTS = [["LOCATION","Leeds, UK"],["STACK","C++, raylib, Unreal Engine 5"],["LEARNING","C++, raylib, OpenGL"],["GOAL","Vulkan"]];
+const FACTS = [["LOCATION","Leeds, UK"],["LOOKING FOR","Placement, Summer/Sept 2027"], ["CURRENTLY", "Learning OpenGL and getting better at C++"]];
 
 const LINKS = [
   ["Email","mailto:"+CFG.email,CFG.email],
   ["GitHub","https://github.com/"+CFG.github,"@"+CFG.github],
-  ["Twitter","https://x.com/Iraidge","@Iraidge"],
+  ["X","https://x.com/Iraidge","@Iraidge"],
   ["LinkedIn", "https://www.linkedin.com/in/ivan-deriabin-688b572a4/", "Ivan Deriabin"],
-  ["Youtube", "https://www.youtube.com/@iraidge", "@Iraidge"],
+  ["YouTube", "https://www.youtube.com/@iraidge", "@Iraidge"],
   ["itch.io", "https://iraidge.itch.io/", "Iraidge"]
 ];
 
-// Skills: n = name, d = description, i = icon key (see ICONS), s = status: now / theory / goal.
-const ICONS = {
-  code:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
-  pad:'<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v5M4.5 12.5h5"/><circle cx="16" cy="11.5" r=".7"/><circle cx="18.5" cy="13.5" r=".7"/>',
-  tool:'<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>',
-  git:'<circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 7v10M18 10c0 4-6 3-12 7"/>',
-  layers:'<polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
-  math:'<path d="M8 3H5v18h3M16 3h3v18h-3"/><path d="M10 9h4M10 15h4"/>',
-  cube:'<path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/>'
-};
+// Skills: groups of [name, detail] rows.
 const SKILLS = [
-  { n:"C++", d:"game code, memory, templates", i:"code", s:"now" },
-  { n:"Unreal Engine", d:"Interfaces, Blueprints, C++", i:"tool", s:"now" },
-  { n:"raylib", d:"2D games, game loop, input", i:"pad", s:"now" },
-  { n:"Git", d:"branches, commits, GitHub", i:"git", s:"now" },
-  { n:"Game math", d:"vectors, matrices, collisions", i:"math", s:"theory" },
-  { n:"OpenGL", d:"graphics pipeline, theory for now", i:"layers", s:"theory" },
-  { n:"Vulkan", d:"a goal for the future", i:"cube", s:"goal" }
+  ["Working with", [
+    ["C++", "game code, memory, templates"],
+    ["Unreal Engine", "Interfaces, Blueprints, C++"],
+    ["raylib", "2D games, game loop, input"],
+    ["Git", "branches, commits, GitHub"]
+  ]],
+  ["Learning", [
+    ["Game math", "vectors, matrices, collisions"],
+    ["OpenGL", "graphics pipeline, theory for now"]
+  ]],
+  ["Aiming for", [
+    ["Vulkan", "a low-level graphics API"]
+  ]]
 ];
-const ST = { now:"writing", theory:"learning", goal:"goal" };
 
 const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 function inline(s){
@@ -123,8 +120,7 @@ function home(){
   app.innerHTML=`
   <section class="hero${CFG.photo?"":" solo"}">
     <div>
-      <div class="prompt"><i>$</i> <span id="typed"></span><span class="cursor"></span></div>
-      <h1>${esc(CFG.name)},<br><em>low-level</em><br>game developer.</h1>
+      <h1>${esc(CFG.name)},<br><em>Gameplay & Graphics</em><br>Programmer.</h1>
       <p class="lead">${esc(CFG.lead)}</p>
       <div class="btns">
         <a class="btn pri" href="#/portfolio">View projects</a>
@@ -144,22 +140,12 @@ function home(){
   </section>
   <section class="road">
     <h3>What I can do</h3>
-    <div class="skills">${SKILLS.map(k=>`<article class="sk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k.i]}</svg></div><div><b>${esc(k.n)}</b><span>${esc(k.d)}</span></div><em class="st ${k.s}">${ST[k.s]}</em></article>`).join("")}</div>
+    <div class="skills">${SKILLS.map(([g,rows])=>`<div class="sg"><h4>${esc(g)}</h4><dl>${rows.map(([n,d])=>`<div><dt>${esc(n)}</dt><dd>${esc(d)}</dd></div>`).join("")}</dl></div>`).join("")}</div>
   </section>
   <section class="road">
     <h3>Contact</h3>
     <ul class="links">${LINKS.map(([n,u,h])=>`<li><a href="${esc(u)}"${u.startsWith("mailto:")?"":' target="_blank" rel="noopener"'}><span>${n}</span>${esc(h)}</a></li>`).join("")}</ul>
   </section>`;
-  typeLine();
-}
-
-let typeTimer;
-function typeLine(){
-  const el=document.getElementById("typed"); if(!el) return;
-  const s=CFG.typed; let i=0;
-  if(matchMedia("(prefers-reduced-motion:reduce)").matches){ el.textContent=s; return; }
-  clearInterval(typeTimer);
-  typeTimer=setInterval(()=>{ el.textContent=s.slice(0,++i); if(i>=s.length) clearInterval(typeTimer); },55);
 }
 
 function projectLinks(p){
@@ -211,7 +197,6 @@ function route(){
   const r=h[0]||"home";
   document.title=CFG.name+" — game developer";
   document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on",a.dataset.r===r));
-  clearInterval(typeTimer);
   window.scrollTo(0,0);
   if(r==="portfolio") portfolio();
   else if(r==="blog") h[1]?post(decodeURIComponent(h[1])):blog();
@@ -223,3 +208,15 @@ document.getElementById("fn").textContent=CFG.name;
 document.getElementById("lg").textContent=CFG.github;
 addEventListener("hashchange",route);
 route();
+
+(function(){
+  const b=document.getElementById("theme"), root=document.documentElement;
+  const sync=()=>{ const t=root.dataset.theme==="light"?"dark":"light"; b.title="Switch to "+t+" theme"; b.setAttribute("aria-label",b.title); };
+  b.onclick=()=>{
+    const light=root.dataset.theme!=="light";
+    if(light) root.dataset.theme="light"; else delete root.dataset.theme;
+    try{ localStorage.setItem("theme",light?"light":"dark"); }catch(e){}
+    sync();
+  };
+  sync();
+})();

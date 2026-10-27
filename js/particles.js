@@ -26,13 +26,14 @@
   function frame(now){
     const dt=Math.min((now-last)/1000,.05); last=now;
     ctx.clearRect(0,0,W,H);
+    const light=document.documentElement.dataset.theme==="light";
     for(let i=0;i<P.length;i++){
       const p=P[i];
       p.life+=dt; p.y+=p.vy*dt;
       if(p.life>p.max||p.y<-10){ P[i]=spawn(true); continue; }
       const x=p.x0+Math.sin(p.ph+p.life*p.fr)*p.sway;
       const al=p.a*Math.sin(Math.PI*p.life/p.max);          // fade in and out
-      ctx.fillStyle=p.ember?`rgba(229,56,59,${al})`:`rgba(232,230,227,${al})`;
+      ctx.fillStyle=light?`rgba(0,0,0,${Math.min(al*1.4,.5)})`:(p.ember?`rgba(229,56,59,${al})`:`rgba(232,230,227,${al})`);
       ctx.beginPath(); ctx.arc(x,p.y,p.r,0,6.2832); ctx.fill();
     }
     requestAnimationFrame(frame);
