@@ -24,7 +24,12 @@ const PROJECTS = [
   { title:"Rooftop Farmer",
     desc:"A small game prototype about farming vegetables on rooftops, built with Unreal Engine 5.6 using Blueprints.",
     tags:["UE5","Blueprints"], img:"assets/Rooftop-Farmer.png",
-    youtube:"https://youtu.be/qA4leDZABsw", itch:"https://iraidge.itch.io/rooftop-farmer" }
+    youtube:"https://youtu.be/qA4leDZABsw", itch:"https://iraidge.itch.io/rooftop-farmer" },
+
+    { title:"OpenGL-Model-Viewer (WIP)",
+    desc:"Simple OBJ viewer made with OpenGL and C++",
+    tags:["OpenGL","C++"], img:"assets/opengl-model-viewer.gif",
+    repo:"opengl-model-viewer" }
 ];
 
 const ABOUT = [
